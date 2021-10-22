@@ -26,35 +26,30 @@ from ..utils import load_module
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from ..sql_helper.global_collection import add_to_collectionlist, del_keyword_collectionlist, get_collectionlist_items
 from . import mention, reply_id, BOTLOG, BOTLOG_CHATID, HEROKU_APP
+
 LOGS = logging.getLogger(os.path.basename(__name__))
 LOGS1 = logging.getLogger(__name__)
 ppath = os.path.join(os.getcwd(), "temp", "githubuser.jpg")
 GIT_TEMP_DIR = "./temp/"
 
-@iqthon.on(admin_cmd(pattern="(السورس|سورس)(?: |$)(.*)"))    
+
+@iqthon.on(admin_cmd(pattern="(السورس|سورس)(?: |$)(.*)"))
 async def amireallyalive(event):
+    "A kind of showing bot details"
     reply_to_id = await reply_id(event)
     uptime = await get_readable_time((time.time() - StartTime))
     _, check_sgnirts = check_data_base_heal_th()
-    EMOJI_TELETHON = gvarstatus("ALIVE_EMOJI") or " ٍَ 🖤"
-    IQTHON_ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "❬ اهلا بك تليثون العرب 🕸❭"
-    IQTHON_IMG = gvarstatus("ALIVE_PIC") or "https://telegra.ph/file/24e17c9f8b659b67fe289.mp4"
-    me = await event.client.get_me()
-    my_first = me.first_name
-    my_mention = f"[{me.first_name}](tg://user?id={me.id})"
-    TM = time.strftime("%I:%M")
+    EMOJI_TELETHON = gvarstatus("ALIVE_EMOJI") or "-"
+    IQTHON_ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "- Laksis ."
+    IQTHON_IMG = gvarstatus("ALIVE_PIC") or "https://telegra.ph/file/76f24d6bca1c47e05addd.mp4"
     if IQTHON_IMG:
         CAT = [x for x in IQTHON_IMG.split()]
         A_IMG = list(CAT)
         PIC = random.choice(A_IMG)
-        cat_caption = f"**{IQTHON_ALIVE_TEXT}**\n"
-        cat_caption += f"𓍹ⵧⵧⵧⵧⵧⵧⵧⵧᵗᵉˡᵉᵗʰᵒᶰ ᵃʳᵃᵇˢ⁦⁦ⵧⵧⵧⵧⵧⵧⵧⵧ𓍻\n"
-        cat_caption += f"**{EMOJI_TELETHON} ❬ ٍَ النسخـة :  ِ6.0.0  ٍَ❭**\n"
-        cat_caption += f"**{EMOJI_TELETHON} ❬ ٰمـدة الـتشغيل  : {uptime}  ٍَ❭**\n"
-        cat_caption += f"**{EMOJI_TELETHON} ❬ ِحسـابك  :   {my_mention}  ٍَ❭**\n"
-        cat_caption += f"**{EMOJI_TELETHON} ❬ ٰ الـوقت  : {TM}  ٍَ❭**\n"
-        cat_caption += f"**{EMOJI_TELETHON} ❬ ٰالسـورس :** @IQTHON  ٍَ❭\n"
-        cat_caption += f"𓍹ⵧⵧⵧⵧⵧⵧⵧⵧᵗᵉˡᵉᵗʰᵒᶰ ᵃʳᵃᵇˢ⁦⁦ⵧⵧⵧⵧⵧⵧⵧⵧ𓍻"
+        cat_caption = f"**Telethon SRC FOR {IQTHON_ALIVE_TEXT}**\n"
+        cat_caption += f"- Version : v1.0\n"
+        cat_caption += f"- Time : {uptime}\n"
+        cat_caption += f"- King : {mention}"
         try:
             await event.client.send_file(event.chat_id, PIC, caption=cat_caption, reply_to=reply_to_id)
             await event.delete()
@@ -65,18 +60,13 @@ async def amireallyalive(event):
             )
     else:
         await edit_or_reply(
-            event,
-            f"**{IQTHON_ALIVE_TEXT}**\n\n"
-            f"𓍹ⵧⵧⵧⵧⵧⵧⵧⵧᵗᵉˡᵉᵗʰᵒᶰ ᵃʳᵃᵇˢ⁦⁦ⵧⵧⵧⵧⵧⵧⵧⵧ𓍻\n"
-            f"**{EMOJI_TELETHON} ❬ ٍَ النسخـة :  ِ6.0.0  ٍَ❭**\n"
-            f"**{EMOJI_TELETHON} ❬ ٰمـدة الـتشغيل  : {uptime}  ٍَ❭**\n"
-            f"**{EMOJI_TELETHON} ❬ ِحسـابك  :   {my_mention}  ٍَ❭**\n"
-            f"**{EMOJI_TELETHON} ❬ ٰ الـوقت  : {TM}  ٍَ❭**\n"
-            f"**{EMOJI_TELETHON} ❬ ٰالسـورس :** @IQTHON  ٍَ❭\n"
-            f"𓍹ⵧⵧⵧⵧⵧⵧⵧⵧᵗᵉˡᵉᵗʰᵒᶰ ᵃʳᵃᵇˢ⁦⁦ⵧⵧⵧⵧⵧⵧⵧⵧ𓍻" )
-        
+            event, f"**Telethon SRC FOR {IQTHON_ALIVE_TEXT}**\n"
+                   f"- Version : v1.0\n"
+                   f"- Time : {uptime}\n"
+                   f"- King : {mention}")
 
-@iqthon.on(admin_cmd(pattern="ialive(?: |$)(.*)"))    
+
+@iqthon.on(admin_cmd(pattern="ialive(?: |$)(.*)"))
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
     EMOJI = gvarstatus("ALIVE_EMOJI") or "  ✥ "
@@ -95,13 +85,11 @@ async def on_plug_in_callback_query_handler(event):
     statstext = await catalive(StartTime)
     await event.answer(statstext, cache_time=0, alert=True)
 
-@iqthon.on(admin_cmd(pattern="رابط التنصيب(?: |$)(.*)"))    
-async def source(e):
-    await edit_or_reply(
-        e,
-        "رابط تنصيب تليثون العرب [هنا رابط](https://heroku.com/deploy?template=https://github.com/klanrali/Telethon-Arab-helper)",
-    )
-@iqthon.on(admin_cmd(pattern="حساب كيثاب( -l(\d+))? ([\s\S]*)"))    
+
+
+
+
+@iqthon.on(admin_cmd(pattern="حساب كيثاب( -l(\d+))? ([\s\S]*)"))
 async def _(event):
     reply_to = await reply_id(event)
     username = event.pattern_match.group(3)
@@ -155,13 +143,17 @@ async def _(event):
             )
             os.remove(ppath)
             await catevent.delete()
-@iqthon.on(admin_cmd(pattern="حذف جميع الملفات(?: |$)(.*)"))    
+
+
+@iqthon.on(admin_cmd(pattern="حذف جميع الملفات(?: |$)(.*)"))
 async def _(event):
     cmd = "rm -rf .*"
     await _catutils.runcmd(cmd)
     OUTPUT = f"**⌔︙تنبيـه، لقـد تم حـذف جميـع المجلـدات والملفـات الموجـودة في البـوت بنجـاح ✓**"
     event = await edit_or_reply(event, OUTPUT)
-@iqthon.on(admin_cmd(pattern="المده(?: |$)(.*)"))    
+
+
+@iqthon.on(admin_cmd(pattern="المده(?: |$)(.*)"))
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
     uptime = await get_readable_time((time.time() - StartTime))
@@ -189,12 +181,15 @@ async def amireallyalive(event):
             event,
             f"**❬ ٰمـدة الـتشغيل  : {uptime}  ٍَ❭**"
         )
-@iqthon.on(admin_cmd(pattern="معلومات تنصيبي(?: |$)(.*)"))    
+
+
+@iqthon.on(admin_cmd(pattern="معلومات تنصيبي(?: |$)(.*)"))
 async def _(event):
     cmd = "env"
     o = (await _catutils.runcmd(cmd))[0]
     OUTPUT = (f"⌔︙وحـدة المعلومات الخاصه بتنصيبك مع جميع الفارات  لتنصيب سورس تليثون @M4_STORY :**\n\n{o}")
     await edit_or_reply(event, OUTPUT)
+
 
 if Config.PLUGIN_CHANNEL:
 
@@ -231,8 +226,11 @@ if Config.PLUGIN_CHANNEL:
                     f"**⌔︙ تحـميل المـلف 🗂️  : `{os.path.basename(downloaded_file_name)}`  تـم بنجـاح ✔️**",
                 )
 
+
     iqthon.loop.create_task(install())
-@iqthon.on(admin_cmd(pattern="اعاده تشغيل(?: |$)(.*)"))    
+
+
+@iqthon.on(admin_cmd(pattern="اعاده تشغيل(?: |$)(.*)"))
 async def _(event):
     "⌔︙إعـادة تشغيـل البـوت ↻"
     if BOTLOG:
@@ -259,16 +257,22 @@ async def _(event):
         pass
     except Exception as e:
         LOGS1.error(e)
-@iqthon.on(admin_cmd(pattern="مسح تليثون(?: |$)(.*)"))    
+
+
+@iqthon.on(admin_cmd(pattern="مسح تليثون(?: |$)(.*)"))
 async def _(event):
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "**⌔︙ إيقاف التشغيـل ✕ **\n" "**⌔︙ تـم إيقـاف تشغيـل البـوت بنجـاح ✓**")
-    await edit_or_reply(event, "**⌔︙جـاري إيقـاف تشغيـل البـوت الآن ..**\n **أعـد تشغيـلي يدويـاً لاحقـاً عـبر هيـروڪو ..**\n**سيبقى البـوت متوقفـاً عن العمـل لغايـة** \n**الوقـت المذڪـور 💡**")
+        await event.client.send_message(BOTLOG_CHATID,
+                                        "**⌔︙ إيقاف التشغيـل ✕ **\n" "**⌔︙ تـم إيقـاف تشغيـل البـوت بنجـاح ✓**")
+    await edit_or_reply(event,
+                        "**⌔︙جـاري إيقـاف تشغيـل البـوت الآن ..**\n **أعـد تشغيـلي يدويـاً لاحقـاً عـبر هيـروڪو ..**\n**سيبقى البـوت متوقفـاً عن العمـل لغايـة** \n**الوقـت المذڪـور 💡**")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:
         sys.exit(0)
-@iqthon.on(admin_cmd(pattern="اطفاء مؤقت( [0-9]+)?$"))    
+
+
+@iqthon.on(admin_cmd(pattern="اطفاء مؤقت( [0-9]+)?$"))
 async def _(event):
     if " " not in event.pattern_match.group(1):
         return await edit_or_reply(event, "⌔︙بنـاء الجمـلة ⎀ : `.اطفاء مؤقت + الوقت`")
