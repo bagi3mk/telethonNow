@@ -1,7 +1,7 @@
 from asyncio import sleep
 
 import requests
-
+import random
 from userbot import iqthon
 
 from ..core.managers import edit_delete, edit_or_reply
@@ -44,8 +44,10 @@ async def _(event):
     },
 )
 async def _(event):
-    "افتارات عيال"    
-    await edit_delete(event, "**افتار**", 5)
+    "افتارات عيال"
+    ran = random.randint(1,200)
+    photo = f"https://t.me/aftaraatt/{ran}"
+    await event.client.send_file(event.chat_id, photo)
 
 
 @iqthon.iq_cmd(
