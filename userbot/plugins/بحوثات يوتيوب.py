@@ -6,6 +6,7 @@ from userbot import iqthon
 from telethon.tl.types import InputMessagesFilterPhotos
 import re
 from bs4 import BeautifulSoup
+import time
 from ..core.managers import edit_delete, edit_or_reply
 
 plugin_category = "utils"
@@ -46,6 +47,8 @@ async def _(event):
     },
 )
 async def _(event):
+    await edit_or_reply(event,f"- جاري البحث عن الحلقة .")
+    time.sleep(2)
     def geturl(name):
         r = requests.get(f"https://ww.anime4up.com/?search_param=animes&s={name}")
         soup = BeautifulSoup(r.content, 'html.parser')
