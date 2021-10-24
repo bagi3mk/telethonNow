@@ -3,6 +3,7 @@ from asyncio import sleep
 import requests
 import random
 from userbot import iqthon
+from telethon.tl.types import InputMessagesFilterPhotos
 
 from ..core.managers import edit_delete, edit_or_reply
 
@@ -47,8 +48,8 @@ async def _(event):
     "افتارات عيال"
     ran = random.randint(1,200)
     photo = f"https://t.me/aftaraatt/{ran}"
-    done = await event.client.download_media(photo,"/d.png")
-    await event.client.send_file(event.chat_id,"/d.png")
+    done = await client.get_messages("aftaraatt", 0, filter=InputMessagesFilterPhotos)
+    await event.client.send_file(event.chat_id,done[50])
 
 
 @iqthon.iq_cmd(
