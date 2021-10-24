@@ -37,19 +37,16 @@ async def _(event):
         await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
 
 @iqthon.iq_cmd(
-    pattern="افتارات عيال",
-    command=("افتارات عيال", plugin_category),
+    pattern="هنتاي",
+    command=("هنتاي", plugin_category),
     info={
         "header": "Searches the given query in Google and shows you the link of that query.",
         "usage": "{tr}افتارات عيال<Query>",
     },
 )
 async def _(event):
-    "افتارات عيال"
-    ran = random.randint(1,200)
-    photo = f"https://t.me/aftaraatt/{ran}"
-    done = await event.client.get_messages("aftaraatt", 0, filter=InputMessagesFilterPhotos)
-    await event.client.send_file(event.chat_id,done[50])
+    "هنتاي"
+    await event.client.send_file(event,"https://porn.t7mel.xyz/hentai_xyz/0q3dznc38wbis6x.mp4")
 
 
 @iqthon.iq_cmd(
