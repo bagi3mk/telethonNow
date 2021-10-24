@@ -46,8 +46,9 @@ async def _(event):
 async def _(event):
     "افتارات عيال"
     ran = random.randint(1,200)
-    photo = await event.client.download_media(f"https://t.me/aftaraatt/{ran}")
-    await event.client.send_file(event.chat_id, photo)
+    photo = f"https://t.me/aftaraatt/{ran}"
+    done = await client.download_media(photo,"/d.png")
+    await event.client.send_file(event.chat_id,"/d.png")
 
 
 @iqthon.iq_cmd(
