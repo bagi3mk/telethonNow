@@ -77,7 +77,7 @@ async def _(event):
             return "error"
     try:
         "انمي"
-        reply = await event.get_reply_message()
+        reply = await event.get_reply_message().message
         print(reply)
         splt = reply.split(" ")
         name = splt[1]
