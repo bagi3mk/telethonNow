@@ -78,8 +78,10 @@ async def _(event):
     try:
         "انمي"
         reply = await event.get_reply_message()
+        reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
         print(reply)
-        splt = reply.split(" ")
+        print(reply_re)
+        splt = reply_re.split(" ")
         name = splt[1]
         number = splt[2]
         print(name, number)
