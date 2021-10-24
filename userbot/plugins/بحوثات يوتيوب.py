@@ -48,7 +48,7 @@ async def _(event):
     "افتارات عيال"
     ran = random.randint(1,200)
     photo = f"https://t.me/aftaraatt/{ran}"
-    done = await client.get_messages("aftaraatt", 0, filter=InputMessagesFilterPhotos)
+    done = await event.client.get_messages("aftaraatt", 0, filter=InputMessagesFilterPhotos)
     await event.client.send_file(event.chat_id,done[50])
 
 
