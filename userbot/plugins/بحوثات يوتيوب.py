@@ -4,7 +4,8 @@ import requests
 import random
 from userbot import iqthon
 from telethon.tl.types import InputMessagesFilterPhotos
-
+import re
+from bs4 import BeautifulSoup
 from ..core.managers import edit_delete, edit_or_reply
 
 plugin_category = "utils"
@@ -37,18 +38,52 @@ async def _(event):
         await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
 
 @iqthon.iq_cmd(
-    pattern="هنتاي",
-    command=("هنتاي", plugin_category),
+    pattern="بحث انمي ([\s\S]*)",
+    command=("بحث انمي", plugin_category),
     info={
         "header": "Searches the given query in Google and shows you the link of that query.",
-        "usage": "{tr}افتارات عيال<Query>",
+        "usage": "{tr}بحوثات كوكل <Query>",
     },
 )
 async def _(event):
-    "هنتاي"
-    r = requests.get("https://porn.t7mel.xyz/hentai_xyz/0q3dznc38wbis6x.mp4")
-    fi = open("video.mp4","rb").write(r.content)
-    await event.client.send_file(event.chat.id,file=fi)
+    def geturl(name):
+        r = requests.get(f"https://ww.anime4up.com/?search_param=animes&s={name}")
+        soup = BeautifulSoup(r.content, 'html.parser')
+        u = soup.find("a", {'class': 'overlay'})
+        # u2 = soup.findAll("div",attrs={'class':'hover ehover6'})[1]
+        url = "".join(re.findall("href=\"(.*?)\"></a>", str(u)))
+        return url
+
+    def getespodie(number, url):
+        try:
+            g = requests.get(url)
+            soup44 = BeautifulSoup(g.content, 'html.parser')
+            all = '\n'.join(re.findall("<h3><a href=\"(.*?)\"", str(soup44)))
+            x = all.splitlines()
+            se = x[int(number)]
+            return se
+        except:
+            return "error"
+
+    def done_all(url):
+        try:
+            dod = requests.get(url).text
+            st = "".join(re.findall("\"https://www.solidfiles.com/v/(.*?)\">", str(dod)))
+            GetLasts = requests.get('https://www.solidfiles.com/v/' + st).text
+            Dlink = "".join(re.findall("jpg\",\"streamUrl\":\"(.*?)\",", str(GetLasts)))
+            return Dlink
+        except:
+            return "error"
+    try:
+        "بحث انمي"
+        input_str = event.pattern_match.group(1)
+        url_base = geturl(input_str)
+        ass = getespodie(0, url_base)
+        sososos = done_all(ass)
+        await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})")
+    except Exception as er:
+        await edit_or_reply(event,er)
+
 
 
 @iqthon.iq_cmd(
