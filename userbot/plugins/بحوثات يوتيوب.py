@@ -76,9 +76,10 @@ async def _(event):
             return "error"
     try:
         "انمي"
-        input_str = event.pattern_match.group(1)
-        url_base = geturl(input_str)
-        ass = getespodie(0, url_base)
+        name = event.pattern_match.group(1)
+        number = event.pattern_match.group(2)
+        url_base = geturl(name)
+        ass = getespodie(number, url_base)
         sososos = done_all(ass)
         await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})")
     except Exception as er:
