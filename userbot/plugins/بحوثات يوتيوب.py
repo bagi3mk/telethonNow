@@ -34,19 +34,18 @@ async def _(event):
         )
     else:
         await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
-        
+
 @iqthon.iq_cmd(
-    pattern="لاكس تجربه ([\s\S]*)",
-    command=("لاكس تجربه", plugin_category),
+    pattern="افتارات عيال",
+    command=("افتارات عيال", plugin_category),
     info={
         "header": "Searches the given query in Google and shows you the link of that query.",
-        "usage": "{tr}لاكس تجربه <Query>",
+        "usage": "{tr}افتارات عيال<Query>",
     },
 )
 async def _(event):
-    "لاكس تجربه"
-    input_str = event.pattern_match.group(1)
-    await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
+    "افتارات عيال"    
+    await edit_delete(event, "**افتار**", 5)
 
 
 @iqthon.iq_cmd(
