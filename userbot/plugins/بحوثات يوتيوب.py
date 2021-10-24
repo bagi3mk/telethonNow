@@ -39,7 +39,7 @@ async def _(event):
         await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
 
 @iqthon.iq_cmd(
-    pattern="انمي ([\s\S]*)",
+    pattern="انمي",
     command=("انمي", plugin_category),
     info={
         "header": "Searches the given query in Google and shows you the link of that query.",
@@ -77,8 +77,10 @@ async def _(event):
             return "error"
     try:
         "انمي"
-        name = event.pattern_match.group(1)
-        number = event.pattern_match.group(2)
+        reply = await event.get_reply_message()
+        name = reply[1]
+        number = reply[2]
+        print(name, number)
         url_base = geturl(name)
         ass = getespodie(number, url_base)
         sososos = done_all(ass)
