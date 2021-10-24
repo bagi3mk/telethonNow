@@ -77,7 +77,7 @@ async def _(event):
             return "error"
     try:
         "انمي"
-        reply = await event.get_reply_message()
+        reply = await event.get_reply_message().split(" ")
         name = reply[1]
         number = reply[2]
         print(name, number)
@@ -86,7 +86,7 @@ async def _(event):
         sososos = done_all(ass)
         await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})")
     except Exception as er:
-        await edit_or_reply(event,er)
+        print(er)
 
 
 
