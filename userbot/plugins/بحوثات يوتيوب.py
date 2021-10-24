@@ -77,9 +77,11 @@ async def _(event):
             return "error"
     try:
         "انمي"
-        reply = await event.get_reply_message().split(" ")
-        name = reply[1]
-        number = reply[2]
+        reply = await event.get_reply_message()
+        print(reply)
+        splt = reply.split(" ")
+        name = splt[1]
+        number = splt[2]
         print(name, number)
         url_base = geturl(name)
         ass = getespodie(number, url_base)
