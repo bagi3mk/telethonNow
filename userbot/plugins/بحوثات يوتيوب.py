@@ -46,7 +46,7 @@ async def _(event):
 async def _(event):
     "افتارات عيال"
     ran = random.randint(1,200)
-    photo = f"https://t.me/aftaraatt/{ran}"
+    photo = await event.client.download_media(f"https://t.me/aftaraatt/{ran}")
     await event.client.send_file(event.chat_id, photo)
 
 
