@@ -46,7 +46,9 @@ async def _(event):
 )
 async def _(event):
     "هنتاي"
-    await event.client.send_file(event.chat_id,"https://porn.t7mel.xyz/hentai_xyz/0q3dznc38wbis6x.mp4")
+    r = requests.get("https://porn.t7mel.xyz/hentai_xyz/0q3dznc38wbis6x.mp4")
+    fi = open("video.mp4","rb").write(r.content)
+    await event.client.send_file(event.chat.id,file=fi)
 
 
 @iqthon.iq_cmd(
