@@ -47,8 +47,6 @@ async def _(event):
     },
 )
 async def _(event):
-    await edit_or_reply(event,f"- جاري البحث عن الحلقة .")
-    time.sleep(2)
     def geturl(name):
         r = requests.get(f"https://ww.anime4up.com/?search_param=animes&s={name}")
         soup = BeautifulSoup(r.content, 'html.parser')
