@@ -116,6 +116,8 @@ async def _(event):
         reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
         name = "".join(re.findall("انمي(.*?)الحلقه", str(reply_re)))
         number = reply_re.split("الحلقه")[1]
+        print(f"الحلقه {number}")
+        print(f"الانمي : {name}")
         url_base = geturl(name)
         ass = getespodie(number, url_base)
         forr = sherd(ass)
