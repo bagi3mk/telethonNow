@@ -88,7 +88,6 @@ async def _(event):
             return "error"
 
     def sherd(url):
-
         get = requests.get(url)
         soup = bs4.BeautifulSoup(get.content, "html.parser")
         try:
@@ -101,8 +100,12 @@ async def _(event):
             except:
                 return None
 
-    def sh(url):
-        r = requests.get(url).content
+    def fuck_jasim(url):
+        get = requests.get(url)
+        soup = bs4.BeautifulSoup(get.content, "html.parser")
+        shr = "\n".join(re.findall("www\.4shared\.com/video/(.*?)\.html", str(soup)))
+        all_thing = f"https://www.4shared.com/video/{shr}.html"
+        r = requests.get(all_thing).content
         soup = BeautifulSoup(r, 'html.parser')
         try:
             url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
@@ -116,15 +119,12 @@ async def _(event):
         reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
         name = "".join(re.findall("انمي(.*?)الحلقه", str(reply_re)))
         number = reply_re.split("الحلقه")[1]
-        print(f"الحلقه {number}")
-        print(f"الانمي : {name}")
         url_base = geturl(name)
         ass = getespodie(number, url_base)
-        forr = sherd(ass)
-        tow = for_laksis(forr)
-        sososos = done_all(ass)
+        sososos = fuck_jasim(ass)
         await edit_or_reply(event, f"[- رابط مباشر للحلقة .]({sososos})"
-                                   f"\n[- رابط مباشر اخر .]({tow})")
+                                   f"\n"
+                                   f"- #Coding By : Laksis .")
     except Exception as er:
         print(er)
 
