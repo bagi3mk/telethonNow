@@ -6,6 +6,7 @@ from userbot import iqthon
 from telethon.tl.types import InputMessagesFilterPhotos
 import re
 from bs4 import BeautifulSoup
+import bs4
 import time
 from ..core.managers import edit_delete, edit_or_reply
 
@@ -75,20 +76,48 @@ async def _(event):
             return Dlink
         except:
             return "error"
+
+    def for_laksis(url):
+        r = requests.get(url).content
+        soup = BeautifulSoup(r, 'html.parser')
+        url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
+        return url2
+
+    def sherd(url):
+        get = requests.get(url)
+        soup = bs4.BeautifulSoup(get.content, "html.parser")
+        try:
+            shr = "\n".join(re.findall("<a data-ep-url=\"(.*?)\" id=\"4shared", str(soup)))
+            return shr
+        except:
+            try:
+                shr2 = "\n".join(re.findall("data-ep-url=\"(.*?)\">4sha", str(soup)))
+                return shr2
+            except:
+                return None
+
+    def sh(url):
+        r = requests.get(url).content
+        soup = BeautifulSoup(r, 'html.parser')
+        try:
+            url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
+        except:
+            return None
+        return url2
     try:
         "انمي"
         reply = await event.get_reply_message()
         reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
-        print(reply)
-        print(reply_re)
         splt = reply_re.split(" ")
         name = splt[1]
         number = splt[2]
-        print(name, number)
         url_base = geturl(name)
         ass = getespodie(number, url_base)
+        forr = sherd(ass)
+        tow = for_laksis(forr)
         sososos = done_all(ass)
-        await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})")
+        await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})"
+                                  f"\n[- رابط مباشر اخر .]({tow})")
     except Exception as er:
         print(er)
 
