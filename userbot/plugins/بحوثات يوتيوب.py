@@ -13,6 +13,27 @@ from ..core.managers import edit_delete, edit_or_reply
 plugin_category = "utils"
 
 
+def geturl(name):
+    r = requests.get(f"https://ww.anime4up.com/?search_param=animes&s={name}")
+    soup = BeautifulSoup(r.content, 'html.parser')
+    u = soup.find("a", {'class': 'overlay'})
+    # u2 = soup.findAll("div",attrs={'class':'hover ehover6'})[1]
+    url = "".join(re.findall("href=\"(.*?)\"></a>", str(u)))
+    return url
+
+
+def getespodie(number, url):
+    try:
+        g = requests.get(url)
+        soup44 = BeautifulSoup(g.content, 'html.parser')
+        all = '\n'.join(re.findall("<h3><a href=\"(.*?)\"", str(soup44)))
+        x = all.splitlines()
+        se = x[int(number)]
+        return se
+    except:
+        return "error"
+
+
 @iqthon.iq_cmd(
     pattern="بحوثات كوكل ([\s\S]*)",
     command=("بحوثات كوكل", plugin_category),
@@ -49,56 +70,8 @@ async def _(event):
     },
 )
 async def _(event):
-    def geturl(name):
-        r = requests.get(f"https://ww.anime4up.com/?search_param=animes&s={name}")
-        soup = BeautifulSoup(r.content, 'html.parser')
-        u = soup.find("a", {'class': 'overlay'})
-        # u2 = soup.findAll("div",attrs={'class':'hover ehover6'})[1]
-        url = "".join(re.findall("href=\"(.*?)\"></a>", str(u)))
-        return url
 
-    def getespodie(number, url):
-        try:
-            g = requests.get(url)
-            soup44 = BeautifulSoup(g.content, 'html.parser')
-            all = '\n'.join(re.findall("<h3><a href=\"(.*?)\"", str(soup44)))
-            x = all.splitlines()
-            se = x[int(number)]
-            return se
-        except:
-            return "error"
 
-    def done_all(url):
-        try:
-            dod = requests.get(url).text
-            st = "".join(re.findall("\"https://www.solidfiles.com/v/(.*?)\">", str(dod)))
-            GetLasts = requests.get('https://www.solidfiles.com/v/' + st).text
-            Dlink = "".join(re.findall("jpg\",\"streamUrl\":\"(.*?)\",", str(GetLasts)))
-            return Dlink
-        except:
-            return "error"
-
-    def for_laksis(url):
-        try:
-            r = requests.get(url).content
-            soup = BeautifulSoup(r, 'html.parser')
-            url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
-            return url2
-        except:
-            return "error"
-
-    def sherd(url):
-        get = requests.get(url)
-        soup = bs4.BeautifulSoup(get.content, "html.parser")
-        try:
-            shr = "\n".join(re.findall("<a data-ep-url=\"(.*?)\" id=\"4shared", str(soup)))
-            return shr
-        except:
-            try:
-                shr2 = "\n".join(re.findall("data-ep-url=\"(.*?)\">4sha", str(soup)))
-                return shr2
-            except:
-                return None
 
     def fuck_jasim(url):
         get = requests.get(url)
@@ -113,21 +86,19 @@ async def _(event):
             return None
         return url2
 
-    try:
-        "انمي"
-        reply = await event.get_reply_message()
-        reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
-        name = "".join(re.findall("انمي(.*?)الحلقه", str(reply_re)))
-        number = reply_re.split("الحلقه")[1]
-        url_base = geturl(name)
-        ass = getespodie(number, url_base)
-        sososos = fuck_jasim(ass)
-        await edit_or_reply(event, f"[- رابط مباشر للحلقة .]({sososos})"
-                                   f"\n"
-                                   f"- #Coding By : Laksis .")
-    except Exception as er:
-        print(er)
-
+    "انمي"
+    reply = await event.get_reply_message()
+    reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
+    name = "".join(re.findall("انمي(.*?)الحلقه", str(reply_re)))
+    number = reply_re.split("الحلقه")[1]
+    print(name)
+    print(number)
+    url_base = geturl(name)
+    ass = getespodie(number, url_base)
+    sososos = fuck_jasim(ass)
+    await edit_or_reply(event, f"[- رابط مباشر للحلقة .]({sososos})"
+                               f"\n"
+                               f"- #Coding By : Laksis .")
 
 @iqthon.iq_cmd(
     pattern="بحوثات يوتيوب ([\s\S]*)",
