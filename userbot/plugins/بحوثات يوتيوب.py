@@ -83,7 +83,7 @@ async def _(event):
         try:
             url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
         except:
-            return None
+            return "None"
         return url2
 
     "انمي"
@@ -94,7 +94,9 @@ async def _(event):
     print(name)
     print(number)
     url_base = geturl(name)
+    print(url_base)
     ass = getespodie(number, url_base)
+    print(ass)
     sososos = fuck_jasim(ass)
     await edit_or_reply(event, f"[- رابط مباشر للحلقة .]({sososos})"
                                f"\n"
