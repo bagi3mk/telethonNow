@@ -39,6 +39,7 @@ async def _(event):
     else:
         await edit_delete(event, "**⌔︙حـدث خطـأ مـا، الرجـاء تڪرار المحاولـة ⚠️**", 5)
 
+
 @iqthon.iq_cmd(
     pattern="انمي",
     command=("انمي", plugin_category),
@@ -87,7 +88,7 @@ async def _(event):
             return "error"
 
     def sherd(url):
-        
+
         get = requests.get(url)
         soup = bs4.BeautifulSoup(get.content, "html.parser")
         try:
@@ -108,23 +109,22 @@ async def _(event):
         except:
             return None
         return url2
+
     try:
         "انمي"
         reply = await event.get_reply_message()
         reply_re = "".join(re.findall(", message='(.*?)',", str(reply)))
-        splt = reply_re.split(" ")
-        name = splt[1]
-        number = splt[2]
+        name = "".join(re.findall("انمي(.*?)الحلقه", str(reply_re)))
+        number = reply_re.split("الحلقه")[1]
         url_base = geturl(name)
         ass = getespodie(number, url_base)
         forr = sherd(ass)
         tow = for_laksis(forr)
         sososos = done_all(ass)
-        await edit_or_reply(event,f"[- رابط مباشر للحلقة .]({sososos})"
-                                  f"\n[- رابط مباشر اخر .]({tow})")
+        await edit_or_reply(event, f"[- رابط مباشر للحلقة .]({sososos})"
+                                   f"\n[- رابط مباشر اخر .]({tow})")
     except Exception as er:
         print(er)
-
 
 
 @iqthon.iq_cmd(
