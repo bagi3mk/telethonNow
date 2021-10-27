@@ -78,12 +78,16 @@ async def _(event):
             return "error"
 
     def for_laksis(url):
-        r = requests.get(url).content
-        soup = BeautifulSoup(r, 'html.parser')
-        url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
-        return url2
+        try:
+            r = requests.get(url).content
+            soup = BeautifulSoup(r, 'html.parser')
+            url2 = "\n".join(re.findall("file: '(.*?)'", str(soup))).splitlines()[0]
+            return url2
+        except:
+            return "error"
 
     def sherd(url):
+        
         get = requests.get(url)
         soup = bs4.BeautifulSoup(get.content, "html.parser")
         try:
